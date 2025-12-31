@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dice to Meet You!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #f8f8f8;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: gold;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+    }
+    .button-container {
+      margin-bottom: 40px;
+    }
+    .category-btn {
+      background: linear-gradient(to right, #333, #222);
+      border: 1px solid gold;
+      color: gold;
+      padding: 15px 25px;
+      margin: 10px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .category-btn:hover {
+      background: gold;
+      color: black;
+    }
+    #question-box {
+      font-size: 1.4rem;
+      padding: 30px;
+      border: 2px solid gold;
+      max-width: 800px;
+      margin: 0 auto;
+      border-radius: 10px;
+      background: rgba(255, 215, 0, 0.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>Dice to Meet You</h1>
+  <div class="button-container">
+    <button class="category-btn" onclick="getRandomQuestion('gettingToKnowYou')">Getting to Know You</button>
+    <button class="category-btn" onclick="getRandomQuestion('memoryLane')">Memory Lane</button>
+    <button class="category-btn" onclick="getRandomQuestion('spiceDice')">Spice Dice</button>
+    <button class="category-btn" onclick="getRandomQuestion('wouldYouRather')">Would You Rather</button>
+    <button class="category-btn" onclick="getRandomQuestion('heartToHeart')">Heart to Heart</button>
+    <button class="category-btn" onclick="getRandomQuestion('random')">Random</button>
+  </div>
+  <div id="question-box">Click a category to roll the dice and reveal a question!</div>
+
+  <script>
+    const questions = {
+      gettingToKnowYou: [
+        "Who TF am I?",
+        "What’s a smell that instantly makes you feel safe or nostalgic?",
+        "If you could only eat one meal for the rest of your life, what would it be?",
+        "What’s your go-to karaoke song, even if you can’t sing?",
+        "What’s your comfort rewatch—TV show, movie, or game?",
+        "Morning person or night owl—and what’s your chaotic peak hour?",
+        "Do you name your stuffed animals, plants, or inanimate objects? If so, give an example.",
+        "What’s your phone wallpaper right now, and what does it say about you?",
+        "What’s your weirdest food combo that you swear is elite?",
+        "If you were a character in a video game, what would your stat strengths and weaknesses be?",
+        "What’s one “dumb little thing” that brings you disproportionate joy?",
+        "What’s a fun fact or party trick you always pull out when people ask about you?",
+        "What’s something super basic that you refuse to do the “normal” way?",
+        "Which random object in your room would make the best weapon in a zombie apocalypse?",
+        "What’s a hobby you’ve always wanted to try but never have?",
+        "Do you have any irrational fears that make way too much sense to you?",
+        "What’s your ideal weather for being your best self?",
+        "Who was your fictional childhood crush, and does it still check out?",
+        "What’s something people always misunderstand about you?",
+        "What’s your most-used emoji and why?",
+        "You win a free day off, all expenses paid. What are you doing?"
+      ],
+      memoryLane: [
+        "What’s the first thing you ever remember being proud of?",
+        "Tell me about a time you laughed so hard you couldn’t breathe.",
+        "What’s the weirdest or most random childhood rule your family had?",
+        "What was your favorite hiding spot as a kid?",
+        "Did you ever have an imaginary friend or secret world growing up?",
+        "What’s a memory that lives in your head rent-free?",
+        "What was your most iconic Halloween costume as a kid?",
+        "Ever had a moment where everything went wrong but ended up hilarious?",
+        "What’s the most trouble you ever got into at school?",
+        "Tell me about a song that instantly takes you back to a specific moment.",
+        "What’s something you stole as a kid and still feel guilty about?",
+        "What’s a smell that transports you back to a specific place or person?",
+        "What’s the most creative lie or excuse you ever told?",
+        "Who was your childhood “partner in crime” and what did you get up to?",
+        "Ever fake something to impress someone? Did it work?",
+        "What’s a family tradition you secretly love (or love to hate)?",
+        "Tell me about a crush that felt like the end of the world.",
+        "What’s a moment that made you feel brave—even if it was small?",
+        "What’s the most ridiculous reason you’ve ever cried?",
+        "What’s something small someone did for you that you’ve never forgotten?"
+      ],
+      spiceDice: [
+        "What instantly makes someone hotter in your eyes?",
+        "What's a kink you didn’t expect to be into… until you were?",
+        "What’s something innocent that turns you on anyway?",
+        "Do you like being the one in control, or losing it?",
+        "What’s your favorite place to be kissed that isn’t the obvious?",
+        "What’s a compliment you secretly live for?",
+        "Where do your eyes go first when you’re checking someone out?",
+        "What’s a low effort move that still wrecks you every time?",
+        "What body part do you wish got more attention?",
+        "How old were you when you lost your virginity?",
+        "Have you ever been naughty somewhere you shouldn't have?",
+        "What is your favorite type of foreplay?",
+        "What’s something small that instantly makes you want someone?",
+        "Dirty talk. Yes or no?",
+        "Lights on or off?",
+        "What is something that is an instant turn on for you, every time?",
+        "What is the most embarrassing thing that has happened to you while being intimate with someone else?",
+        "What is your go-to porn category?",
+        "What is your favorite position?",
+        "What’s your “tell” when someone’s getting to you?"
+      ],
+      wouldYouRather: [
+        "Would you rather have your dream house but no sex, or amazing sex but live in a cardboard box?",
+        "Would you rather be loved deeply by one person or liked by everyone?",
+        "Would you rather always say what you’re thinking or never be able to speak again?",
+        "Would you rather kiss in the rain or slow dance in the kitchen?",
+        "Would you rather cuddle in complete silence or talk all night with zero touching?",
+        "Would you rather have your partner read your mind during sex or during arguments?",
+        "Would you rather get caught sexting or talking shit?",
+        "Would you rather never wear underwear again or always wear socks to bed?",
+        "Would you rather send a risky text to your crush or accidentally text your mom instead?",
+        "Would you rather give up music or give up sex?",
+        "Would you rather go on a cozy cabin trip with someone new or a wild Vegas weekend with an ex?",
+        "Would you rather be the big spoon or the little spoon forever?",
+        "Would you rather be insanely attractive but smell faintly of onions or average looking and smell amazing?",
+        "Would you rather be known for your laugh or your voice?",
+        "Would you rather be caught having sex or crying in the shower?",
+        "Would you rather fall in love slowly over years or instantly like a train wreck?",
+        "Would you rather only be able to flirt through memes or voice notes?",
+        "Would you rather have an emotional connection with bad sex or amazing sex with zero depth?",
+        "Would you rather send the first message or wait for them to come to you?",
+        "Would you rather share your bed or your favorite hoodie?"
+      ],
+      heartToHeart: [
+        "What’s your biggest green flag in a relationship?",
+        "What’s something you’ve learned the hard way from a past relationship?",
+        "Do you believe in soulmates or just good timing?",
+        "What’s your most toxic but honest ick?",
+        "What makes you feel the most wanted?",
+        "Do you fall fast, or does it take you time?",
+        "What’s a romantic cliché you secretly love?",
+        "How do you usually show someone you care?",
+        "How do you like to argue—talk it out immediately or cool off first?",
+        "What’s one non-negotiable you have in a partner?",
+        "When you’re upset, do you want space or closeness?",
+        "Have you ever had your heart properly broken?",
+        "What’s a small act that instantly makes you feel safe in love?",
+        "What’s something you used to think mattered in a partner—but now don’t care about?",
+        "What’s something that matters way more to you now than it used to?",
+        "Do you want the kind of love that’s calm and steady—or loud and passionate?",
+        "What’s a romantic gesture you secretly want but never ask for?",
+        "How do you know you’re ready to commit to someone?",
+        "What’s one emotional need you have in relationships that most people overlook?",
+        "What’s your biggest fear when it comes to relationships?",
+        "Have you ever cheated on someone while in a committed relationship?"
+      ],
+      random: [
+        "What’s a movie or show you irrationally hated that everyone else loved?",
+        "You get to instantly master one random skill—what is it and how would you abuse it?",
+        "What’s something you insist on doing yourself even if someone offers to help?",
+        "If your personality had a flavor, what would it taste like?",
+        "What’s your go-to lie when someone you barely know asks how you’re doing?",
+        "If your life had a laugh track, what’s a recent moment that would’ve triggered it?",
+        "What’s something you’ve never done that people would totally assume you have?",
+        "If your pet could talk, what’s the first thing they’d say about you?",
+        "You get $10,000 but have to spend it all in 24 hours. What’s the plan?",
+        "If you got to rename yourself right now, what’s your chaotic new name?",
+        "You’re now famous, but for the dumbest possible reason. What’d you do?",
+        "What’s a sound you hate that most people probably don’t notice?",
+        "If you had a warning label, what would it say?",
+        "What’s something that always feels illegal but isn’t?",
+        "What’s the most recent thing you Googled that would make someone raise an eyebrow?",
+        "You have to swap lives with a cartoon character for a week. Who do you pick and why?",
+        "What’s a completely mundane thing that gives you a weird power trip?",
+        "If your inner child could write a Yelp review of adulthood, what would it say?",
+        "What’s one random object in your home that holds emotional power over you?",
+        "If someone went thru your phone, which app is the one you DO NOT want them looking thru? Whatcha hidin..?"
+      ]
+    };
+
+    function getRandomQuestion(category) {
+      const box = document.getElementById("question-box");
+      const options = questions[category];
+      const randomIndex = Math.floor(Math.random() * options.length);
+      box.innerText = options[randomIndex];
+    }
+  </script>
+</body>
+</html>
